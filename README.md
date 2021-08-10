@@ -33,3 +33,8 @@ Requirements
 ```sh
 ▶ pip3 install -r requirements.txt
 ```
+Chromedriver
+------------
+js_finder works with chromedriver.I have already attached the latest version of the chromedriver with this repository.you can use it or download the latest version of chromedriver bynary file from [here](https://chromedriver.chromium.org/getting-started).</br>
+And put the driver in the same directory of the js_finder file</br>
+This tool uses headless chrome with the help of selenium library</br>.
