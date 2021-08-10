@@ -12,7 +12,7 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome("./chromedriver", options=chrome_options) 
 driver.set_page_load_timeout(20)
-# w=open(sys.argv[1],'r')
+
 count_js = 0
 js_files=[]
 js_file_faild=[]
@@ -25,14 +25,12 @@ w.seek(0)
 for j in w:
     count_urls+=1
     print("\033[39m["+str(count_urls)+"/"+str(count_domain)+"] [+] "+j.rstrip('\n'))
-    # print("[+]"+j.rstrip('\n'))
     try:
         driver.get(j)
         soup = BeautifulSoup(driver.page_source, "html.parser")
         l = [i.get('src') for i in soup.find_all('script') if i.get('src')]
     except Exception as e:
-        continue
-# __import__('pprint').pprint(l)	
+        continue	
     for k in l:
         count_js+=1
         if k.startswith('//') and 'www.' not in k:
@@ -44,7 +42,6 @@ for j in w:
                 source = res.text
                 
             except:
-                # print("[404] "+url)
                 js_files.append(url)
         elif k.startswith('/') and 'www' not in k:
             url=j.rstrip('\n')+k
@@ -52,7 +49,6 @@ for j in w:
                 status_code = urllib.request.urlopen(url).getcode()
                 print("\033[32m["+str(status_code)+"] "+url)
             except:
-                # print("[404] "+url)
                 js_files.append(url)
         elif k[0:8] != 'https://' and k[0:7] != 'http://' and 'www.' not in k:
             try:
@@ -60,7 +56,6 @@ for j in w:
                 status_code = urllib.request.urlopen(url).getcode()
                 print("\033[32m["+str(status_code)+"] "+url)
             except:
-                # print("[404] "+url)
                 js_files.append(url)
         elif k.startswith('http:'):
             try:
@@ -68,14 +63,12 @@ for j in w:
                 status_code = urllib.request.urlopen(url).getcode()
                 print("\033[32m["+str(status_code)+"] "+url)
             except:
-                # print("[404] "+url)
                 js_files.append(url)
         elif k.startswith('//') and 'www.'in k:
             try:
                 url = "https:"+k
                 status_code = urllib.request.urlopen(url).getcode()
             except:
-                # print("[404 "+url)
                 js_files.append(url)
         else:
             try:
